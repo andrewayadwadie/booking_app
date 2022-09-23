@@ -6,6 +6,7 @@ class LoginController extends GetxController {
   RxBool loading = true.obs;
 
   void sendLoginData({required String? email, required String? password}) {
+
     /*
     loading.value = false;
     AuthServices.login(email: email ?? Constants.empty, password: password ?? Constants.empty)
@@ -39,4 +40,5 @@ class LoginController extends GetxController {
     vis = !vis;
     update();
   }
+
 }

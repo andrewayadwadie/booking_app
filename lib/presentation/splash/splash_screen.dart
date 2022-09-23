@@ -1,7 +1,7 @@
+import 'package:booking_app/presentation/Auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../app/constants.dart';
-import '../Home/home_screen.dart';
 import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
  
@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen>
                   .then(
             (value3) => _lottieAnimation.forward().then(
               (value4) {
-                Get.offAll(const HomeScreen());
+                Get.offAll(const LoginScreen());
               },
             ),
           ),
@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen>
               duration: transitionDuration,
               firstChild: Container(),
               secondChild: Image.asset(
-                ImageAssets.splashLogo,
+                ImageAssets.logo,
                 width: 150,
                 height: 150,
               ),

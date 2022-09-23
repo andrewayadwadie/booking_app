@@ -1,45 +1,47 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../app/shared_widgets/loader_widget.dart';
 import '../../data/controller/login_controller.dart';
 import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
+import '../resources/font_manager.dart';
+import '../resources/size_manager.dart';
+import '../resources/strings_manager.dart';
+import '../resources/styles_manager.dart';
 import '../resources/values_manager.dart';
-
- 
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
   String? email = '';
-
   String? password = '';
-
   final _loginformKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return SafeArea(
       child: Scaffold(
           body: SingleChildScrollView(
               reverse: true,
               child: Column(
                 children: [
-                  // Header =======
+                  //! Header =======
                   Container(
-                    height: 300,
-                    decoration:   BoxDecoration(
-                      borderRadius:
-                          const BorderRadius.only(bottomLeft: Radius.circular(90)),
+                    height: SizeConfig.screenHeight! / MediaSize.m3,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(BorderRadiusValues.br90)),
                       color: ColorManager.primary,
                       gradient: LinearGradient(
-                        colors: [( ColorManager.primary), ColorManager.lightPrimary],
+                        colors: [
+                          (ColorManager.primary),
+                          ColorManager.lightPrimary
+                        ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                       ),
@@ -49,32 +51,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(width: AppSize.s2, color:  ColorManager.primary),
-                              borderRadius: BorderRadius.circular(60)),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(width: AppSize.s2, color: ColorManager.white),
-                                borderRadius: BorderRadius.circular(60)),
-                            //margin: const EdgeInsets.only(top: 50),
-                            child: Image.asset(
-                              ImageAssets.splashLogo,
-                              height: 100,
-                              width: 100,
-                            ),
+                        CircleAvatar(
+                          radius: AppSize.s55,
+                          child: Image.asset(
+                            ImageAssets.logo,
                           ),
                         ),
                         Container(
-                          margin: const EdgeInsets.only(right: 20, top: 20),
-                          alignment: Alignment.bottomRight,
-                          child: Text(
-                            'login'.tr,
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.white),
+                          margin: const EdgeInsets.only(
+                            right: AppMargin.m20,
+                            top: AppMargin.m20,
                           ),
-                        )
+                          alignment: Alignment.bottomRight,
+                          child: Text(AppStrings.login,
+                              style: getMediumStyle(
+                                  color: ColorManager.white,
+                                  fontSize: FontSize.s20)),
+                        ),
                       ],
                     )),
                   ),
@@ -84,43 +77,50 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 40, right: 40, top: 40),
+                                left: AppPadding.p32,
+                                right: AppPadding.p32,
+                                top: AppPadding.p32),
                             child: TextFormField(
                               keyboardType: TextInputType.emailAddress,
-                              cursorColor:  ColorManager.primary,
+                              cursorColor: ColorManager.primary,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        width: AppSize.s2, color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                        width: AppSize.s2,
+                                        color: ColorManager.grey),
+                                    borderRadius: BorderRadius.circular(
+                                        BorderRadiusValues.br10),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide:   BorderSide(
-                                        width: AppSize.s2, color:  ColorManager.primary),
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                        width: AppSize.s2,
+                                        color: ColorManager.primary),
+                                    borderRadius: BorderRadius.circular(
+                                        BorderRadiusValues.br10),
                                   ),
-                                  icon:   Icon(
+                                  icon: Icon(
                                     Icons.email,
-                                    color:  ColorManager.primary,
+                                    color: ColorManager.primary,
                                   ),
-                                  labelText: 'E-mail'.tr,
-                                  hintText: 'E-mail'.tr,
-                                  labelStyle: const TextStyle(
-                                      fontSize: 16, fontWeight: FontWeight.bold)
-                                  //enabledBorder: InputBorder.none
+                                  labelText: AppStrings.email,
+                                  hintText: AppStrings.email,
+                                  labelStyle: getBoldStyle(
+                                      color: ColorManager.secondary,
+                                      fontSize: FontSize.s16)
+                                  
                                   ),
                               onSaved: (val) {
                                 email = val;
                               },
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter e-mail'.tr;
+                                  return AppStrings.emptyEmailValidation;
                                 } else if (!value.contains("@")) {
-                                  return 'Please enter a valid email'.tr;
+                                  return AppStrings.notValidEmailValidation;
                                 } else {
                                   return null;
                                 }
-                              }, // enabledBorder: InputBorder.none,
+                              }, 
                             ),
                           ),
                           GetBuilder<LoginController>(
@@ -128,43 +128,47 @@ class _LoginScreenState extends State<LoginScreen> {
                               builder: (loginCtrl) {
                                 return Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 40, right: 40, top: 30),
+                                      left: AppPadding.p32,
+                                      right: AppPadding.p32,
+                                      top: AppPadding.p32),
                                   child: TextFormField(
                                     obscureText: loginCtrl.vis,
                                     keyboardType: TextInputType.visiblePassword,
-                                    cursorColor:  ColorManager.primary,
+                                    cursorColor: ColorManager.primary,
                                     decoration: InputDecoration(
                                         border: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                              width: 2, color: Colors.grey),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                              width: AppSize.s2,
+                                              color: ColorManager.grey),
+                                          borderRadius: BorderRadius.circular(
+                                              BorderRadiusValues.br10),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide:   BorderSide(
-                                              width: AppSize.s2, color:  ColorManager.primary),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                              width: AppSize.s2,
+                                              color: ColorManager.primary),
+                                          borderRadius: BorderRadius.circular(
+                                              BorderRadiusValues.br10),
                                         ),
-                                        icon:   Icon(
+                                        icon: Icon(
                                           Icons.vpn_key,
-                                          color:  ColorManager.primary,
+                                          color: ColorManager.primary,
                                         ),
-                                        labelText: 'password'.tr,
-                                        hintText: 'password'.tr,
-                                        labelStyle: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
+                                        labelText: AppStrings.password,
+                                        hintText: AppStrings.password,
+                                        labelStyle: getBoldStyle(
+                                      color: ColorManager.secondary,
+                                      fontSize: FontSize.s16),
                                         suffix: GestureDetector(
                                           onTap: () {
                                             loginCtrl.eyetToggle();
                                           },
                                           child: Icon(
-                                            loginCtrl.vis== true
+                                            loginCtrl.vis == true
                                                 ? Icons.visibility
                                                 : Icons.visibility_off,
-                                            color:  ColorManager.primary,
-                                            size: 19,
+                                            color: ColorManager.primary,
+                                            size: AppSize.s16,
                                           ),
                                         ) // enab
                                         ),
@@ -173,10 +177,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     },
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter your password'.tr;
-                                      } else if (value.length < 8) {
-                                        return 'The password must be more than 8 characters'
-                                            .tr;
+                                        return AppStrings.emptyPasswordValidation;
+                                      } else if (value.length < AppValues.passwordLength) {
+                                        return AppStrings.passwordLengthValidation
+                                          ;
                                       } else {
                                         return null;
                                       }
@@ -201,36 +205,30 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     margin: const EdgeInsets.only(
-                                        left: 20, right: 20, top: 70),
+                                        left: AppMargin.m20, right: AppMargin.m20, top: AppMargin.m60),
                                     padding: const EdgeInsets.only(
-                                        left: 20, right: 20),
-                                    height: 54,
+                                        left: AppMargin.m20, right: AppMargin.m20),
+                                    height: SizeConfig.screenHeight!/MediaSize.m15,
                                     decoration: BoxDecoration(
-                                      gradient:   LinearGradient(
+                                      gradient: LinearGradient(
                                           colors: [
-                                            ( ColorManager.primary),
+                                            (ColorManager.primary),
                                             ColorManager.lightPrimary
                                           ],
                                           begin: Alignment.centerLeft,
                                           end: Alignment.centerRight),
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: Colors.grey[200],
-                                      boxShadow: const [
-                                        BoxShadow(
-                                            offset: Offset(0, 10),
-                                            blurRadius: 50,
-                                            color: Color(0xffEEEEEE)),
-                                      ],
+                                      borderRadius: BorderRadius.circular(BorderRadiusValues.br50),
+                                      
+                                     
                                     ),
                                     child: ctrl.loading.value == true
-                                        ?   Text(
-                                            'login'.tr,
-                                            style:
-                                                const TextStyle(color: Colors.white),
-                                          )
-                                        :   CircularProgressIndicator(
-                                            color: ColorManager.white,
-                                          ),
+                                        ? Text(
+                                            AppStrings.login,
+                                            style:getMediumStyle(color: ColorManager.white,fontSize: FontSize.s17))
+                                        : const LoaderWidget(
+                                          height: AppSize.s40,
+                                          width: AppSize.s40,
+                                        ),
                                   ),
                                 );
                               }),
