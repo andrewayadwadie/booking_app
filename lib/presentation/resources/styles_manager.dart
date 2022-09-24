@@ -9,7 +9,17 @@ TextStyle _getTextStyle(double fontSize, FontWeight fontWeight, Color color) {
       color: color,
       fontWeight: fontWeight);
 }
+//!  underline text,
 
+TextStyle getUnderLineStyle(
+    {double fontSize = FontSize.s12, required Color color}) {
+  return TextStyle(
+      decoration: TextDecoration.underline,
+      fontSize: fontSize,
+      fontFamily: FontConstants.fontFamily,
+      color: color,
+      fontWeight: FontWeightManager.bold);
+}
 //! regular style
 
 TextStyle getRegularStyle(
@@ -33,8 +43,7 @@ TextStyle getLightStyle(
 
 //! bold style
 
-TextStyle getBoldStyle(
-    {double fontSize = FontSize.s12, required Color color}) {
+TextStyle getBoldStyle({double fontSize = FontSize.s12, required Color color}) {
   return _getTextStyle(fontSize, FontWeightManager.bold, color);
 }
 

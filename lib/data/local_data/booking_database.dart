@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import '../../app/db_tables_names.dart';
-import '../../app/sql_constants.dart';
-import '../../domain/models/hotels_model.dart';
-import 'package:sqflite/sqflite.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as p;
+import 'package:sqflite/sqflite.dart';
 
+import '../../app/db_tables_names.dart';
+import '../../app/sql_constants.dart';
 import '../../domain/models/branches_model.dart';
+import '../../domain/models/hotels_model.dart';
 import '../../domain/models/reservation_model.dart';
 import '../../domain/models/rooms_model.dart';
 import '../../domain/models/rooms_type_model.dart';

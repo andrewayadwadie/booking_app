@@ -5,7 +5,7 @@ class ColorManager {
   static Color secondary = const Color(0xff003462);
   static Color darkGrey = const Color(0xff525252);
   static Color grey = const Color(0xff737477);
-  static Color lightGrey = const Color(0xfff2f2f2);
+  static Color lightGrey = const Color.fromARGB(255, 203, 203, 203);
   static Color black = const Color(0xff171717);
 
   //! new colors

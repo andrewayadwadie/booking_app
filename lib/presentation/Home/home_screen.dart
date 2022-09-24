@@ -1,9 +1,11 @@
-
+import 'widget/branches_widget.dart';
+import 'widget/header_widget.dart';
+import 'widget/rooms_widget.dart';
+import 'widget/title_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../resources/color_manager.dart';
 import '../resources/size_manager.dart';
-import '../resources/styles_manager.dart';
+import '../resources/strings_manager.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
@@ -12,22 +14,22 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-        body: Center(
-            child: InkWell(
-      onTap: () async{
- 
-
-      },
-      child: Container(
-        width: 200,
-        height: 200,
-        color: ColorManager.error,
-        child: Text(
-          "add data of Hotel",
-          style: getMediumStyle(color: ColorManager.white),
-        ),
-      ),
-    )));
+    return SafeArea(
+      child: Scaffold(
+          body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          HomeHeaderWidget(),
+          HomeTitleWidget(
+            title: AppStrings.branches,
+          ),
+          HomeBranchesWidget(),
+          HomeTitleWidget(
+            title: AppStrings.rooms,
+          ),
+          HomeRoomsWidget(),
+        ],
+      )),
+    );
   }
 }
