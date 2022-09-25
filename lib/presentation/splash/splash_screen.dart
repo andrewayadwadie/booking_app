@@ -1,11 +1,12 @@
-import 'package:booking_app/presentation/Auth/login_screen.dart';
+import '../../app/app_prefs.dart';
+import '../Auth/login_screen.dart';
+import '../Home/home_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../app/constants.dart';
 import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
- 
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen>
   var expanded = false;
 
   final transitionDuration =
-        const Duration(seconds: Constants.splashAnimationDelay);
+      const Duration(seconds: Constants.splashAnimationDelay);
 
   @override
   void initState() {
@@ -38,7 +39,9 @@ class _SplashScreenState extends State<SplashScreen>
                   .then(
             (value3) => _lottieAnimation.forward().then(
               (value4) {
-                Get.offAll(const LoginScreen());
+                SharedPreferencesHelper.getLoginValue() == true
+                    ? Get.offAll(() => HomeScreen())
+                    : Get.offAll(() => LoginScreen());
               },
             ),
           ),

@@ -2,26 +2,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesHelper {
   static SharedPreferences? _sharedPref;
-  static const _token = 'usertoken';
- 
+  static const _loged = 'loged';
 
   static Future init() async {
     _sharedPref = await SharedPreferences.getInstance();
   }
 
-//!------------------------------- Token---------------------------- */
-  static Future setTokenValue(String value) async {
-    await _sharedPref!.setString(_token, value);
+//!------------------------------- login---------------------------- */
+  static Future setLoginValue(bool value) async {
+    await _sharedPref!.setBool(_loged, value);
   }
 
-  static String getTokenValue() {
-    return _sharedPref!.getString(_token) ?? '';
+  static bool getLoginValue() {
+    return _sharedPref!.getBool(_loged) ?? false;
   }
 
-  static Future clearToken() async {
-    await _sharedPref!.remove(_token);
+  static Future clearLogin() async {
+    await _sharedPref!.remove(_loged);
   }
-
- 
-  
 }

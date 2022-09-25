@@ -10,17 +10,15 @@ import '../resources/size_manager.dart';
 import '../resources/strings_manager.dart';
 import '../resources/styles_manager.dart';
 import '../resources/values_manager.dart';
+import 'sign_up_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
+// ignore: must_be_immutable
+class LoginScreen extends StatelessWidget {
   String? email = '';
   String? password = '';
   final _loginformKey = GlobalKey<FormState>();
+
+  LoginScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -30,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
               reverse: true,
               child: Column(
                 children: [
-                  //! Header =======
+                  //! Header
                   Container(
                     height: SizeConfig.screenHeight! / MediaSize.m3,
                     decoration: BoxDecoration(
@@ -75,6 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       key: _loginformKey,
                       child: Column(
                         children: [
+                          //! email
                           Padding(
                             padding: const EdgeInsets.only(
                                 left: AppPadding.p32,
@@ -106,9 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   hintText: AppStrings.email,
                                   labelStyle: getBoldStyle(
                                       color: ColorManager.secondary,
-                                      fontSize: FontSize.s16)
-                                  
-                                  ),
+                                      fontSize: FontSize.s16)),
                               onSaved: (val) {
                                 email = val;
                               },
@@ -120,9 +117,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 } else {
                                   return null;
                                 }
-                              }, 
+                              },
                             ),
                           ),
+                          //! password
                           GetBuilder<LoginController>(
                               init: LoginController(),
                               builder: (loginCtrl) {
@@ -157,8 +155,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         labelText: AppStrings.password,
                                         hintText: AppStrings.password,
                                         labelStyle: getBoldStyle(
-                                      color: ColorManager.secondary,
-                                      fontSize: FontSize.s16),
+                                            color: ColorManager.secondary,
+                                            fontSize: FontSize.s16),
                                         suffix: GestureDetector(
                                           onTap: () {
                                             loginCtrl.eyetToggle();
@@ -177,10 +175,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     },
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return AppStrings.emptyPasswordValidation;
-                                      } else if (value.length < AppValues.passwordLength) {
-                                        return AppStrings.passwordLengthValidation
-                                          ;
+                                        return AppStrings
+                                            .emptyPasswordValidation;
+                                      } else if (value.length <
+                                          AppValues.passwordLength) {
+                                        return AppStrings
+                                            .passwordLengthValidation;
                                       } else {
                                         return null;
                                       }
@@ -189,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 );
                               }),
 
-                          //! login button ========
+                          //! login button
                           GetX<LoginController>(
                               init: LoginController(),
                               builder: (ctrl) {
@@ -205,10 +205,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     margin: const EdgeInsets.only(
-                                        left: AppMargin.m20, right: AppMargin.m20, top: AppMargin.m60),
+                                        left: AppMargin.m20,
+                                        right: AppMargin.m20,
+                                        top: AppMargin.m60),
                                     padding: const EdgeInsets.only(
-                                        left: AppMargin.m20, right: AppMargin.m20),
-                                    height: SizeConfig.screenHeight!/MediaSize.m15,
+                                        left: AppMargin.m20,
+                                        right: AppMargin.m20),
+                                    height: SizeConfig.screenHeight! /
+                                        MediaSize.m15,
                                     decoration: BoxDecoration(
                                       gradient: LinearGradient(
                                           colors: [
@@ -217,21 +221,36 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ],
                                           begin: Alignment.centerLeft,
                                           end: Alignment.centerRight),
-                                      borderRadius: BorderRadius.circular(BorderRadiusValues.br50),
-                                      
-                                     
+                                      borderRadius: BorderRadius.circular(
+                                          BorderRadiusValues.br50),
                                     ),
                                     child: ctrl.loading.value == true
-                                        ? Text(
-                                            AppStrings.login,
-                                            style:getMediumStyle(color: ColorManager.white,fontSize: FontSize.s17))
+                                        ? Text(AppStrings.login,
+                                            style: getMediumStyle(
+                                                color: ColorManager.white,
+                                                fontSize: FontSize.s17))
                                         : const LoaderWidget(
-                                          height: AppSize.s40,
-                                          width: AppSize.s40,
-                                        ),
+                                            height: AppSize.s40,
+                                            width: AppSize.s40,
+                                          ),
                                   ),
                                 );
                               }),
+                          //! Sign up button
+                          Padding(
+                            padding: const EdgeInsets.only(top: AppPadding.p10),
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.to(SignUpScreen());
+                              },
+                              child: Text(
+                                AppStrings.newAccount,
+                                style: getUnderLineStyle(
+                                    color: ColorManager.secondary,
+                                    fontSize: FontSize.s14),
+                              ),
+                            ),
+                          )
                         ],
                       )),
                 ],

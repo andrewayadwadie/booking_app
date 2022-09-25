@@ -1,7 +1,7 @@
-import 'package:booking_app/presentation/resources/color_manager.dart';
-import 'package:booking_app/presentation/resources/font_manager.dart';
-import 'package:booking_app/presentation/resources/strings_manager.dart';
-import 'package:booking_app/presentation/resources/styles_manager.dart';
+import '../../resources/color_manager.dart';
+import '../../resources/font_manager.dart';
+import '../../resources/strings_manager.dart';
+import '../../resources/styles_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../../resources/size_manager.dart';

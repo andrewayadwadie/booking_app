@@ -1,44 +1,46 @@
 import 'package:get/get.dart';
 
+import '../../app/app_prefs.dart';
+import '../../domain/models/user_model.dart';
+import '../../presentation/Home/home_screen.dart';
+import '../../presentation/resources/strings_manager.dart';
+import '../local_data/booking_database.dart';
+
 class LoginController extends GetxController {
   bool vis = true;
 
   RxBool loading = true.obs;
-
+  BookingDatabase db = BookingDatabase.instance;
   void sendLoginData({required String? email, required String? password}) {
-
-    /*
-    loading.value = false;
-    AuthServices.login(email: email ?? Constants.empty, password: password ?? Constants.empty)
-        .then((res) {
-      //! success
-      if (res.runtimeType == List) {
-        loading.value = true;
-        SharedPreferencesHelper.setTokenValue(res[0].toString());
-        SharedPreferencesHelper.setExpireDateValue(res[1].toString());
-        SharedPreferencesHelper.setRoleValue(res[2].toString());
-         
-
-        Get.offAll(()=>  HomeScreen());
-        //!Error
-      } else if (res.runtimeType == String) {
-        loading.value = true;
-        Get.defaultDialog(
-          title: AppStrings.error,
-          middleText: res.toString(),
-          onConfirm: () => Get.back(),
-          confirmTextColor: ColorManager.white,
-          buttonColor:  ColorManager.error,
-          backgroundColor:ColorManager.white  ,
+    isExist(email: email, password: password).then((value) {
+      if (value) {
+        SharedPreferencesHelper.setLoginValue(value);
+        Get.offAll(() => HomeScreen());
+      } else {
+        Get.snackbar(
+          AppStrings.oops,
+          AppStrings.notValidLoginData,
         );
       }
     });
-  */
+  }
+
+  Future<bool> isExist(
+      {required String? email, required String? password}) async {
+    List<UserModel> allUsers = await db.readAllUsers();
+    bool isExist = false;
+    for (var user in allUsers) {
+      if (user.email == email && user.password == password) {
+        isExist = true;
+      } else {
+        isExist = false;
+      }
+    }
+    return isExist;
   }
 
   void eyetToggle() {
     vis = !vis;
     update();
   }
-
 }
