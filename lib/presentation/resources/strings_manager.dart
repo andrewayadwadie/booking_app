@@ -19,6 +19,8 @@ class AppStrings {
   static const branch = "Branch";
   static const rooms = "Rooms";
   static const seeAll = "See All";
+  static const add = "Add";
+
   static const branchName = "Branch Name";
   static const branchNumber = "Branch Number";
 

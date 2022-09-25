@@ -15,7 +15,7 @@ class LoginController extends GetxController {
     isExist(email: email, password: password).then((value) {
       if (value) {
         SharedPreferencesHelper.setLoginValue(value);
-        Get.offAll(() => HomeScreen());
+        Get.offAll(() => const HomeScreen());
       } else {
         Get.snackbar(
           AppStrings.oops,

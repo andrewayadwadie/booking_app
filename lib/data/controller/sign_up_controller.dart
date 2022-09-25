@@ -29,7 +29,7 @@ class SignupController extends GetxController {
                 discount: false))
             .then((val) {
           SharedPreferencesHelper.setLoginValue(value);
-          Get.offAll(() => HomeScreen());
+          Get.offAll(() => const HomeScreen());
         });
       } else {
         Get.snackbar(

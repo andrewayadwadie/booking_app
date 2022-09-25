@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen>
             (value3) => _lottieAnimation.forward().then(
               (value4) {
                 SharedPreferencesHelper.getLoginValue() == true
-                    ? Get.offAll(() => HomeScreen())
+                    ? Get.offAll(() => const HomeScreen())
                     : Get.offAll(() => LoginScreen());
               },
             ),

@@ -8,8 +8,10 @@ import '../../resources/styles_manager.dart';
 import '../../resources/values_manager.dart';
 
 class HomeTitleWidget extends StatelessWidget {
-  const HomeTitleWidget({Key? key, required this.title}) : super(key: key);
+  const HomeTitleWidget({Key? key, required this.title, this.addFunction}) : super(key: key);
   final String title;
+  final VoidCallback? addFunction ;
+ 
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,11 +28,14 @@ class HomeTitleWidget extends StatelessWidget {
                 color: ColorManager.secondary,
                 fontSize: FontSize.s16,
               )),
-          Text(AppStrings.seeAll,
-              style: getUnderLineStyle(
-                color: ColorManager.secondary,
-                fontSize: FontSize.s16,
-              )),
+          GestureDetector(
+            onTap: addFunction,
+            child: Text(AppStrings.add,
+                style: getUnderLineStyle(
+                  color: ColorManager.secondary,
+                  fontSize: FontSize.s16,
+                )),
+          ),
         ],
       ),
     );
