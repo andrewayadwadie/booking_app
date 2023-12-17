@@ -13,7 +13,7 @@ ThemeData getApplicationTheme() {
     primaryColorDark: ColorManager.darkPrimary,
     disabledColor: ColorManager.grey1,
     splashColor: ColorManager.lightPrimary,
-    //! Font theme 
+    //! Font theme
     fontFamily: FontConstants.fontFamily,
 
     //! cardview theme
@@ -41,7 +41,7 @@ ThemeData getApplicationTheme() {
         style: ElevatedButton.styleFrom(
             textStyle: getRegularStyle(
                 color: ColorManager.white, fontSize: FontSize.s17),
-            primary: ColorManager.primary,
+            backgroundColor: ColorManager.primary,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppSize.s12)))),
 
@@ -87,8 +87,9 @@ ThemeData getApplicationTheme() {
             borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
         //! focused border style
         focusedErrorBorder: OutlineInputBorder(
-            borderSide:BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
+            borderSide:
+                BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
             borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)))),
-       //! label style
+    //! label style
   );
 }
